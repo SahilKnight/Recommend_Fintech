@@ -1,0 +1,120 @@
+<div class="detail-page" *ngIf="!loading">
+  <header class="page-header">
+    <nav class="breadcrumb">
+      <a routerLink="/dashboard">Dashboard</a> > 
+      <a routerLink="/recommendations">Recommendations</a> > 
+      {{ recommendation?.symbol }}
+    </nav>
+    <button class="btn-back" routerLink="/recommendations">← Back to List</button>
+  </header>
+
+  <div class="detail-content" *ngIf="recommendation">
+    <div class="main-info">
+      <div class="symbol-header">
+        <h1>{{ recommendation.symbol }}</h1>
+        <span [class]="'signal ' + recommendation.signal.toLowerCase().replace('_', '-')">
+          {{ recommendation.signal }}
+        </span>
+      </div>
+      <h2 class="company-name">{{ recommendation.name }}</h2>
+      
+      <div class="price-section">
+        <div class="current-price">₹{{ recommendation.currentPrice }}</div>
+        <div class="change" [class.positive]="recommendation.changePercent > 0" [class.negative]="recommendation.changePercent < 0">
+          {{ recommendation.changePercent > 0 ? '+' : '' }}{{ recommendation.changePercent }}%
+        </div>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      <div class="card">
+        <h3>Key Metrics</h3>
+        <div class="metrics">
+          <div class="metric-item">
+            <span class="label">Segment</span>
+            <span class="value">{{ recommendation.segment }}</span>
+          </div>
+          <div class="metric-item">
+            <span class="label">Investment Horizon</span>
+            <span class="value">{{ recommendation.horizon }} Term</span>
+          </div>
+          <div class="metric-item">
+            <span class="label">Confidence Level</span>
+            <span class="value">{{ recommendation.confidence }}%</span>
+          </div>
+          <div class="metric-item">
+            <span class="label">Current Price</span>
+            <span class="value">₹{{ recommendation.currentPrice }}</span>
+          </div>
+        </div>
+        
+        <div class="confidence-visual">
+          <div class="confidence-bar">
+            <div class="confidence-fill" [style.width.%]="recommendation.confidence"></div>
+          </div>
+          <div class="confidence-text">{{ recommendation.confidence }}% Confidence</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Price History</h3>
+        <div class="chart-placeholder">
+          <div class="chart-info">
+            <p>5-Day Price Movement</p>
+            <div class="price-points">
+              <div class="price-point" *ngFor="let point of history">
+                <div class="date">{{ point.date | date:'MMM dd' }}</div>
+                <div class="price">₹{{ point.price }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card full-width">
+        <h3>Investment Rationale</h3>
+        <div class="rationale">
+          <div class="rationale-section">
+            <h4>Why {{ recommendation.signal }}?</h4>
+            <p *ngIf="recommendation.signal === 'STRONG_BUY'">
+              Strong technical indicators combined with positive fundamental outlook. 
+              Recent price action shows bullish momentum with volume confirmation.
+            </p>
+            <p *ngIf="recommendation.signal === 'BUY'">
+              Favorable risk-reward ratio with positive technical setup. 
+              Good entry point for medium-term investment horizon.
+            </p>
+            <p *ngIf="recommendation.signal === 'HOLD'">
+              Current position maintains neutral outlook. 
+              Wait for clearer directional signals before adding exposure.
+            </p>
+            <p *ngIf="recommendation.signal === 'AVOID'">
+              Technical indicators suggest downward pressure. 
+              Risk-reward ratio not favorable at current levels.
+            </p>
+          </div>
+          
+          <div class="rationale-section">
+            <h4>Key Factors</h4>
+            <ul>
+              <li>Technical analysis shows {{ recommendation.signal === 'STRONG_BUY' || recommendation.signal === 'BUY' ? 'bullish' : 'bearish' }} pattern</li>
+              <li>Market sentiment aligns with {{ recommendation.horizon.toLowerCase() }}-term outlook</li>
+              <li>Risk management suggests {{ recommendation.confidence > 70 ? 'high' : recommendation.confidence > 50 ? 'moderate' : 'low' }} probability setup</li>
+              <li>Sector dynamics support the current recommendation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+  <p>Loading recommendation details...</p>
+</div>
+
+<div class="error" *ngIf="!loading && !recommendation">
+  <h2>Recommendation Not Found</h2>
+  <p>The requested recommendation could not be found.</p>
+  <button class="btn-primary" routerLink="/recommendations">Back to Recommendations</button>
+</div>

@@ -1,0 +1,38 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h2>Start 3-Day Trial</h2>
+    <p class="subtitle">No payment required for this demo.</p>
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+      
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" name="email" required />
+
+      <label>Password</label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+
+      <label>Confirm Password</label>
+      <input
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        {{ loading ? 'Creating Account...' : 'Create Account' }}
+      </button>
+    </form>
+
+    <p class="helper">
+      Already have an account?
+      <a routerLink="/login">Login</a>
+    </p>
+  </div>
+</div>
