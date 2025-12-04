@@ -1,0 +1,106 @@
+<div class="risk-management-page">
+  <header class="page-header">
+    <h1>Portfolio Risk Management</h1>
+    <nav class="breadcrumb">
+      <a routerLink="/dashboard">Dashboard</a> > Risk Management
+    </nav>
+  </header>
+
+  <div class="risk-overview">
+    <div class="risk-summary-card">
+      <h2>Overall Portfolio Risk</h2>
+      <div class="risk-score" [class]="getRiskClass(overallRiskScore)">
+        {{ overallRiskScore }}/10
+      </div>
+      <div class="risk-label">
+        {{ overallRiskScore <= 3 ? 'Low Risk' : overallRiskScore <= 6 ? 'Moderate Risk' : 'High Risk' }}
+      </div>
+    </div>
+
+    <div class="risk-metrics">
+      <div class="metric-card">
+        <h3>Risk Capacity</h3>
+        <div class="metric-value">{{ riskCapacity }}</div>
+      </div>
+      <div class="metric-card">
+        <h3>Diversification</h3>
+        <div class="metric-value">Good</div>
+      </div>
+      <div class="metric-card">
+        <h3>Max Drawdown</h3>
+        <div class="metric-value">-12.5%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portfolio-analysis">
+    <h2>Portfolio Holdings Risk Analysis</h2>
+    <div class="holdings-table">
+      <div class="table-header">
+        <div class="col-symbol">Symbol</div>
+        <div class="col-allocation">Allocation</div>
+        <div class="col-risk">Risk Score</div>
+        <div class="col-beta">Beta</div>
+        <div class="col-volatility">Volatility</div>
+        <div class="col-var">VaR (1%)</div>
+        <div class="col-recommendation">Action</div>
+      </div>
+      
+      <div class="table-row" *ngFor="let holding of portfolioRisks">
+        <div class="col-symbol">
+          <div class="symbol-info">
+            <strong>{{ holding.symbol }}</strong>
+            <span class="name">{{ holding.name }}</span>
+          </div>
+        </div>
+        <div class="col-allocation">
+          <div class="allocation-bar">
+            <div class="allocation-fill" [style.width.%]="holding.allocation"></div>
+          </div>
+          <span>{{ holding.allocation }}%</span>
+        </div>
+        <div class="col-risk">
+          <span [class]="getRiskClass(holding.riskScore)">{{ holding.riskScore }}</span>
+        </div>
+        <div class="col-beta">{{ holding.beta }}</div>
+        <div class="col-volatility">{{ holding.volatility }}%</div>
+        <div class="col-var">{{ holding.var }}%</div>
+        <div class="col-recommendation">
+          <span [class]="getRecommendationClass(holding.recommendation)">
+            {{ holding.recommendation }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="risk-insights">
+    <div class="insight-card">
+      <h3>Risk Recommendations</h3>
+      <ul>
+        <li>Consider reducing HDFC Bank allocation to improve risk-adjusted returns</li>
+        <li>Your portfolio shows good diversification across sectors</li>
+        <li>Gold allocation provides good hedge against market volatility</li>
+        <li>Consider adding more defensive stocks for better risk management</li>
+      </ul>
+    </div>
+
+    <div class="insight-card">
+      <h3>Stress Test Results</h3>
+      <div class="stress-scenarios">
+        <div class="scenario">
+          <span class="scenario-name">Market Crash (-20%)</span>
+          <span class="scenario-impact">Portfolio Impact: -16.2%</span>
+        </div>
+        <div class="scenario">
+          <span class="scenario-name">Interest Rate Rise (+2%)</span>
+          <span class="scenario-impact">Portfolio Impact: -8.5%</span>
+        </div>
+        <div class="scenario">
+          <span class="scenario-name">Sector Rotation</span>
+          <span class="scenario-impact">Portfolio Impact: -4.1%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

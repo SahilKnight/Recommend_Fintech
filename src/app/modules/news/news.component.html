@@ -1,0 +1,132 @@
+<div class="news-page">
+  <header class="page-header">
+    <h1>Market News & Sentiment Analysis</h1>
+    <nav class="breadcrumb">
+      <a routerLink="/dashboard">Dashboard</a> > News & Analysis
+    </nav>
+  </header>
+
+  <div class="sentiment-overview">
+    <div class="sentiment-card positive">
+      <div class="sentiment-icon">📈</div>
+      <div class="sentiment-info">
+        <h3>Positive News</h3>
+        <div class="count">{{ getPositiveCount() }}</div>
+      </div>
+    </div>
+    <div class="sentiment-card negative">
+      <div class="sentiment-icon">📉</div>
+      <div class="sentiment-info">
+        <h3>Negative News</h3>
+        <div class="count">{{ getNegativeCount() }}</div>
+      </div>
+    </div>
+    <div class="sentiment-card neutral">
+      <div class="sentiment-icon">➡️</div>
+      <div class="sentiment-info">
+        <h3>Neutral News</h3>
+        <div class="count">{{ getNeutralCount() }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>Category:</label>
+      <select [(ngModel)]="selectedCategory">
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Sentiment:</label>
+      <select [(ngModel)]="selectedSentiment">
+        <option *ngFor="let sentiment of sentiments" [value]="sentiment">
+          {{ sentiment }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="news-list">
+    <div class="news-item" *ngFor="let news of filteredNews">
+      <div class="news-header">
+        <div class="news-meta">
+          <span class="source">{{ news.source }}</span>
+          <span class="category">{{ news.category }}</span>
+          <span class="timestamp">{{ news.publishedAt | date:'MMM dd, HH:mm' }}</span>
+        </div>
+        <div class="news-indicators">
+          <div class="sentiment-indicator" [class]="getSentimentClass(news.sentiment)">
+            <span class="sentiment-icon">{{ getSentimentIcon(news.sentiment) }}</span>
+            <span class="sentiment-label">{{ news.sentiment }}</span>
+            <span class="sentiment-score">{{ news.sentimentScore }}</span>
+          </div>
+          <div class="relevance-indicator" [class]="getRelevanceClass(news.relevanceScore)">
+            <span class="relevance-score">{{ news.relevanceScore }}/10</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-content">
+        <h3 class="news-title">{{ news.title }}</h3>
+        <p class="news-summary">{{ news.summary }}</p>
+        
+        <div class="impacted-symbols" *ngIf="news.impactedSymbols.length > 0">
+          <span class="symbols-label">Impacted Symbols:</span>
+          <div class="symbols-list">
+            <span class="symbol-tag" *ngFor="let symbol of news.impactedSymbols">
+              {{ symbol }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-actions">
+        <button class="btn-analyze">Analyze Impact</button>
+        <button class="btn-bookmark">Bookmark</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sentiment-insights">
+    <div class="insight-card">
+      <h3>Market Sentiment Summary</h3>
+      <div class="sentiment-breakdown">
+        <div class="sentiment-bar">
+          <div class="positive-bar" [style.width.%]="40"></div>
+          <div class="neutral-bar" [style.width.%]="20"></div>
+          <div class="negative-bar" [style.width.%]="40"></div>
+        </div>
+        <div class="sentiment-labels">
+          <span class="positive">40% Positive</span>
+          <span class="neutral">20% Neutral</span>
+          <span class="negative">40% Negative</span>
+        </div>
+      </div>
+      <p class="insight-text">
+        Mixed sentiment in markets with equal positive and negative news flow. 
+        Monitor policy announcements and earnings for directional clarity.
+      </p>
+    </div>
+
+    <div class="insight-card">
+      <h3>Key Themes</h3>
+      <div class="themes-list">
+        <div class="theme-item">
+          <span class="theme-name">Interest Rates</span>
+          <span class="theme-impact">High Impact</span>
+        </div>
+        <div class="theme-item">
+          <span class="theme-name">Earnings Season</span>
+          <span class="theme-impact">Medium Impact</span>
+        </div>
+        <div class="theme-item">
+          <span class="theme-name">Global Cues</span>
+          <span class="theme-impact">High Impact</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

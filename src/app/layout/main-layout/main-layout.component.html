@@ -1,0 +1,36 @@
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-mark">AI</span>
+      <span class="logo-text">TradeSignals</span>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/recommendations" routerLinkActive="active">Recommendations</a>
+      <a routerLink="/backtesting" routerLinkActive="active">Backtesting</a>
+      <a routerLink="/subscription" routerLinkActive="active">Subscription</a>
+      <a routerLink="/settings" routerLinkActive="active">Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="trial-label">3-Day Free Trial</span>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title">AI Trading Assistant</h1>
+      </div>
+      <div class="topbar-right">
+        <span class="user-name">Demo User</span>
+        <button class="logout-btn" routerLink="/login">Logout</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="dashboard">
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1>FinTech Insights Dashboard</h1>
+      <div class="user-info" *ngIf="user$ | async as user">
+        <span>{{ user.email }}</span>
+        <div class="trial-info" *ngIf="user.subscriptionType === 'TRIAL'">
+          Trial: {{ remainingTrialDays }} days left
+        </div>
+        <button class="btn-secondary" (click)="logout()">Logout</button>
+      </div>
+    </div>
+    <nav class="nav-tabs">
+      <a routerLink="/dashboard" class="nav-tab active">Dashboard</a>
+      <a routerLink="/recommendations" class="nav-tab">Recommendations</a>
+      <a routerLink="/risk-management" class="nav-tab">Risk Management</a>
+      <a routerLink="/news" class="nav-tab">News & Analysis</a>
+      <a routerLink="/subscription" class="nav-tab">Subscription</a>
+    </nav>
+  </header>
+
+  <div class="dashboard-content">
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let s of stats">
+        <div class="stat-label">{{ s.label }}</div>
+        <div class="stat-value">{{ s.value }}</div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="card">
+        <h3>Today's Top Recommendations</h3>
+        <div class="recommendations-list">
+          <div class="recommendation-item" *ngFor="let rec of recommendations">
+            <div class="rec-header">
+              <span class="symbol">{{ rec.symbol }}</span>
+              <span [class]="getSignalClass(rec.signal)">{{ rec.signal }}</span>
+            </div>
+            <div class="rec-details">
+              <span class="name">{{ rec.name }}</span>
+              <span class="price">₹{{ rec.currentPrice }}</span>
+              <span class="change" [class.positive]="rec.changePercent > 0" [class.negative]="rec.changePercent < 0">
+                {{ rec.changePercent > 0 ? '+' : '' }}{{ rec.changePercent }}%
+              </span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" routerLink="/recommendations">View All Recommendations</button>
+      </div>
+
+      <div class="card">
+        <h3>Market Insights</h3>
+        <div class="insights">
+          <div class="insight-item">
+            <h4>Equity Markets</h4>
+            <p>Strong bullish momentum in large-cap stocks with IT and pharma leading gains.</p>
+          </div>
+          <div class="insight-item">
+            <h4>Commodities</h4>
+            <p>Gold showing consolidation pattern, crude oil facing resistance at key levels.</p>
+          </div>
+          <div class="insight-item">
+            <h4>Risk Assessment</h4>
+            <p>Market volatility remains moderate with selective opportunities in mid-cap space.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

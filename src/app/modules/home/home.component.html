@@ -1,0 +1,115 @@
+<div class="home-page">
+  <header class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>AI-Powered Investment Intelligence</h1>
+        <p class="hero-subtitle">
+          Get data-driven investment recommendations powered by advanced AI algorithms 
+          and real-time market sentiment analysis.
+        </p>
+        <div class="launch-status">
+          <span class="status-badge">🚀 Launching Soon</span>
+          <p class="launch-text">Be among the first to experience the future of investment decisions</p>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="chart-mockup">
+          <div class="chart-bars">
+            <div class="bar" style="height: 60%"></div>
+            <div class="bar" style="height: 80%"></div>
+            <div class="bar" style="height: 45%"></div>
+            <div class="bar" style="height: 90%"></div>
+            <div class="bar" style="height: 70%"></div>
+          </div>
+          <div class="trend-line"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="waitlist-section">
+    <div class="waitlist-container">
+      <h2>Join the Waiting List</h2>
+      <p>Get early access to our platform and exclusive beta features</p>
+      
+      <form class="waitlist-form" (ngSubmit)="onWaitlistSubmit()" *ngIf="!isSubmitted">
+        <div class="input-group">
+          <input 
+            type="email" 
+            [(ngModel)]="email" 
+            name="email"
+            placeholder="Enter your email address" 
+            required
+          />
+          <button type="submit" class="btn-join">Join Waitlist</button>
+        </div>
+        <p class="privacy-note">
+          We'll notify you when we launch. No spam, unsubscribe anytime.
+        </p>
+      </form>
+
+      <div class="success-message" *ngIf="isSubmitted">
+        <div class="success-icon">✅</div>
+        <h3>You're on the list!</h3>
+        <p>We'll notify you as soon as we launch. Thank you for your interest!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-preview">
+    <div class="features-container">
+      <h2>What's Coming</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Smart Recommendations</h3>
+          <p>AI-powered stock picks based on technical analysis, fundamentals, and market sentiment</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Risk Management</h3>
+          <p>Advanced portfolio risk analysis with real-time monitoring and alerts</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📰</div>
+          <h3>News Sentiment</h3>
+          <p>Real-time news analysis with sentiment scoring for informed decisions</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-time Alerts</h3>
+          <p>Instant notifications for market opportunities and risk warnings</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <div class="demo-container">
+      <h2>Experience the Demo</h2>
+      <p>Try our current demo version with sample data and features</p>
+      <div class="demo-actions">
+        <a routerLink="/register" class="btn-demo">Try Demo Now</a>
+        <a routerLink="/login" class="btn-login">Already have access?</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3>FinTech Insights</h3>
+        <p>Revolutionizing investment decisions with AI-powered intelligence</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 FinTech Insights. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
